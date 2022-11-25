@@ -1,6 +1,6 @@
 <template>
   <div class="text-3xl font-semibold">
-    <slot />
+    <slot/>
     <footer class="pt-32  px-4 pb-4">
       <div class="w-full flex justify-between">
         <div>
@@ -14,6 +14,7 @@
       </div>
     </footer>
   </div>
+
 </template>
 
 <script>
