@@ -8,7 +8,7 @@
 
   <Teleport to="body">
     <transition :appear="isArchiveOnSSR" name="overlay">
-      <ProductOverlay  v-if="product"  v-bind="items.find(p => p.slug.current === product) || {}" :key="product"
+      <ProductOverlay  v-if="product"  v-bind="items.find(p => p.slug.current === product) || {}"
                       @close="closeModal"/>
     </transition>
   </Teleport>

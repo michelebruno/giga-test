@@ -6,10 +6,7 @@
       </Heading>
     </Wrapper>
 
-    <ProductGrid v-if="renderArchive" :items="data?.articles" back-to="/archive/"/>
-    <ClientOnly v-else>
-      <ProductGrid :items="data?.articles" back-to="/archive/"/>
-    </ClientOnly>
+    <ProductGrid :items="data?.articles" back-to="/archive/"/>
 
   </main>
 
@@ -30,6 +27,7 @@ query {
      }
      thumbnail {
         asset {
+          _id
           size
           url
         }

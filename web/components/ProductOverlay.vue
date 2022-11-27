@@ -1,12 +1,13 @@
 <template>
 
-  <div class="product-overlay-container z-20" ref="container">
+  <div class="product-overlay-container noscrollbar overflow-y-scroll z-20" ref="container"
+       :style="{maxHeight : viewportHeight *2  + 'px'}">
 
-    <div   class="fixed inset-0 bg-gray h-screen w-screen  z-10"
+    <div class="fixed inset-0 bg-gray h-screen w-screen  z-10"
          :style="{opacity: 1 - scrollProgress }"></div>
 
-    <div class="bg-white h-screen relative z-10">
-      <div class="p-5 h-screen text-4xl">
+    <div class="bg-white h-screen relative z-10" :style="{height : viewportHeight  + 'px'}">
+      <div class="p-5 h-screen text-4xl" :style="{height : viewportHeight  + 'px'}">
         <div class="flex lg:gap-5 flex-col lg:grid lg:grid-cols-[1fr_45%_1fr] h-full">
           <div class="text-right lg:col-start-3">
             <button @click="$emit('close')">Close</button>
@@ -26,7 +27,7 @@
       </div>
     </div>
 
-    <div class="h-screen w-full relative z-10"></div>
+    <div class="h-screen w-full relative z-10" :style="{height : viewportHeight  + 'px'}"></div>
   </div>
 
 </template>
@@ -46,6 +47,8 @@ const emit = defineEmits(['close'])
 
 const container: Ref<null | HTMLElement> = ref(null)
 
+const viewportHeight = useState('viewport-height')
+
 const {title, slug, price, thumbnail} = defineProps({
   title: String,
   price: Number,
@@ -64,20 +67,21 @@ useHead({
 
 const scrollProgress = useState('overlay.scrollprogress', () => 1)
 
-onMounted(()=>{
+onMounted(() => {
 
-  const defaultScroller =  document?.body
+  viewportHeight.value = window?.innerHeight
+  const defaultScroller = document?.body
   defaultScroller?.classList.add('overflow-hidden')
 
   container.value?.addEventListener('scroll', e => {
-    scrollProgress.value = e?.target?.scrollTop / window.innerHeight
-    if (scrollProgress.value === 1) emit('close')
+    scrollProgress.value = e?.target?.scrollTop /  e.target.offsetHeight
+    if (scrollProgress.value >= 1) emit('close')
   })
 })
 
-onBeforeUnmount(()=>{
+onBeforeUnmount(() => {
 
-  const defaultScroller =  document?.body
+  const defaultScroller = document?.body
   defaultScroller?.classList.remove('overflow-hidden')
 
 })
@@ -89,8 +93,11 @@ onBeforeUnmount(()=>{
 .product-overlay-container {
   position: fixed;
   inset: 0;
-  overflow-y: scroll;
-  max-height: 100vh;
+
+
+}
+
+.noscrollbar {
 
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -98,7 +105,7 @@ onBeforeUnmount(()=>{
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.product-overlay-container::-webkit-scrollbar {
+.noscrollbar::-webkit-scrollbar {
   display: none;
 }
 
