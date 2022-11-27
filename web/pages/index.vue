@@ -3,7 +3,7 @@
     <section class="min-h-screen bg-white relative">
       <video src="~assets/index-cover-video.mp4"
              class="inset-0 absolute object-cover object-center h-full w-full" loop autoplay playsinline muted
-             poster="~assets/index-cover-video-poster.jpeg"/>
+             poster="~assets/index-cover-video-poster.jpg"/>
     </section>
     <Wrapper>
       <Heading subheading="Potteries by Leonardo Romano">

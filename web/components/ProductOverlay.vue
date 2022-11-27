@@ -5,20 +5,20 @@
 
       <div class="bg-white h-screen">
         <div class="p-5 h-screen text-4xl">
-          <div class="flex md:gap-5 flex-col md:grid md:grid-cols-[1fr_45%_1fr] h-full">
-            <div class="text-right md:col-start-3">
+          <div class="flex lg:gap-5 flex-col lg:grid lg:grid-cols-[1fr_45%_1fr] h-full">
+            <div class="text-right lg:col-start-3">
               <button @click="scrollDown">Close</button>
             </div>
 
-            <div class="py-5 md:py-0 flex-1 md:col-start-2 md:row-start-1 md:row-span-2">
+            <div class="py-5 lg:py-0 flex-1 lg:col-start-2 lg:row-start-1 lg:row-span-2">
 
-              <div class="relative h-full md:pt-0">
+              <div class="relative h-full lg:pt-0">
                 <img v-if="thumbnail" :src="thumbnail?.asset?.url" class="absolute inset-0 object-cover h-full w-full"/>
               </div>
             </div>
 
-            <h2 class="md:col-start-1 md:row-start-2  md:self-end">{{ title }}</h2>
-            <p class="md:col-start-3 md:row-start-2 md:text-right md:self-end">€
+            <h2 class="lg:col-start-1 lg:row-start-2  lg:self-end">{{ title }}</h2>
+            <p class="lg:col-start-3 lg:row-start-2 lg:text-right lg:self-end">€
               {{ new Intl.NumberFormat('it-IT', {minimumFractionDigits: 2}).format(price) }}</p>
           </div>
         </div>
@@ -31,13 +31,14 @@
 </template>
 
 <script setup lang="ts">
-import {defineNuxtComponent, useState} from "#app";
+import {defineNuxtComponent, useHead, useState} from "#app";
 import {onBeforeUnmount, onMounted} from "#imports";
 import {Ref} from "@vue/reactivity";
 
 defineNuxtComponent({
   name: 'ProductOverlay'
 })
+
 
 const emit = defineEmits(['close'])
 
@@ -52,6 +53,11 @@ const {title, slug, price, thumbnail} = defineProps({
   },
   thumbnail: Object,
   __typename: String
+})
+
+
+useHead({
+  title
 })
 
 const scrollProgress = useState('overlay.scrollprogress', () => 1)

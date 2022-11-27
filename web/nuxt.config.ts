@@ -16,6 +16,8 @@ export default defineNuxtConfig({
     ],
     app: {
         head: {
+            titleTemplate: '%s – Pot Pot Pottery',
+            title: 'Pot Pot Pottery',
             link: [
 
                 {

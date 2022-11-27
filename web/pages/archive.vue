@@ -22,6 +22,7 @@
 <script setup lang="ts">
 import {useCurrentProduduct} from "#imports";
 import ProductGrid from "~/components/ProductGrid.vue";
+import {useHead} from "#app";
 
 const query = gql`
 query {
@@ -59,6 +60,9 @@ definePageMeta({
   }
 })
 
+useHead({
+  title:'Archive'
+})
 const {backTo, product, isArchiveOnSSR} = useCurrentProduduct()
 
 function closeModal() {
