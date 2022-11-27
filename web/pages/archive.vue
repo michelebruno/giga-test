@@ -6,17 +6,13 @@
       </Heading>
     </Wrapper>
 
-    <ProductGrid v-if="isArchiveOnSSR" :items="data?.articles"/>
+    <ProductGrid v-if="renderArchive" :items="data?.articles" back-to="/archive/"/>
     <ClientOnly v-else>
-      <ProductGrid :items="data?.articles"/>
+      <ProductGrid :items="data?.articles" back-to="/archive/"/>
     </ClientOnly>
 
   </main>
 
-  <Teleport to="body">
-    <ProductOverlay v-if="product" v-bind="data.articles.find(p => p.slug.current === product)"
-                    @close="closeModal"/>
-  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -65,7 +61,7 @@ useHead({
 })
 const {backTo, product, isArchiveOnSSR} = useCurrentProduduct()
 
-function closeModal() {
-  backTo('/archive')
-}
+const renderArchive = typeof window !== 'undefined' || isArchiveOnSSR
+
+
 </script>

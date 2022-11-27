@@ -1,39 +1,41 @@
 <template>
-  <div class="fixed inset-0 bg-gray h-screen w-screen  z-10" :style="{opacity: 1- scrollProgress }"></div>
-  <transition appear>
-    <div class="product-overlay-container z-20" ref="container">
 
-      <div class="bg-white h-screen">
-        <div class="p-5 h-screen text-4xl">
-          <div class="flex lg:gap-5 flex-col lg:grid lg:grid-cols-[1fr_45%_1fr] h-full">
-            <div class="text-right lg:col-start-3">
-              <button @click="scrollDown">Close</button>
-            </div>
+  <div class="product-overlay-container z-20" ref="container">
 
-            <div class="py-5 lg:py-0 flex-1 lg:col-start-2 lg:row-start-1 lg:row-span-2">
+    <div   class="fixed inset-0 bg-gray h-screen w-screen  z-10"
+         :style="{opacity: 1 - scrollProgress }"></div>
 
-              <div class="relative h-full lg:pt-0">
-                <img v-if="thumbnail" :src="thumbnail?.asset?.url" class="absolute inset-0 object-cover h-full w-full"/>
-              </div>
-            </div>
-
-            <h2 class="lg:col-start-1 lg:row-start-2  lg:self-end">{{ title }}</h2>
-            <p class="lg:col-start-3 lg:row-start-2 lg:text-right lg:self-end">€
-              {{ new Intl.NumberFormat('it-IT', {minimumFractionDigits: 2}).format(price) }}</p>
+    <div class="bg-white h-screen relative z-10">
+      <div class="p-5 h-screen text-4xl">
+        <div class="flex lg:gap-5 flex-col lg:grid lg:grid-cols-[1fr_45%_1fr] h-full">
+          <div class="text-right lg:col-start-3">
+            <button @click="$emit('close')">Close</button>
           </div>
+
+          <div class="py-5 lg:py-0 flex-1 lg:col-start-2 lg:row-start-1 lg:row-span-2">
+            <div class="relative h-full lg:pt-0">
+              <img v-if="thumbnail" :src="thumbnail?.asset?.url"
+                   class="absolute inset-0 object-cover h-full w-full"/>
+            </div>
+          </div>
+
+          <h2 class="lg:col-start-1 lg:row-start-2  lg:self-end">{{ title }}</h2>
+          <p class="lg:col-start-3 lg:row-start-2 lg:text-right lg:self-end">€
+            {{ new Intl.NumberFormat('it-IT', {minimumFractionDigits: 2}).format(price) }}</p>
         </div>
       </div>
-
-      <div class="h-screen"></div>
     </div>
-  </transition>
+
+    <div class="h-screen w-full relative z-10"></div>
+  </div>
 
 </template>
 
 <script setup lang="ts">
 import {defineNuxtComponent, useHead, useState} from "#app";
-import {onBeforeUnmount, onMounted} from "#imports";
+import {onBeforeUnmount, onMounted, watch} from "#imports";
 import {Ref} from "@vue/reactivity";
+import {iif} from "rxjs";
 
 defineNuxtComponent({
   name: 'ProductOverlay'
@@ -62,8 +64,10 @@ useHead({
 
 const scrollProgress = useState('overlay.scrollprogress', () => 1)
 
-onMounted(() => {
-  document?.getElementById('__nuxt')?.classList.add('overflow-hidden')
+onMounted(()=>{
+
+  const defaultScroller =  document?.body
+  defaultScroller?.classList.add('overflow-hidden')
 
   container.value?.addEventListener('scroll', e => {
     scrollProgress.value = e?.target?.scrollTop / window.innerHeight
@@ -71,15 +75,12 @@ onMounted(() => {
   })
 })
 
-onBeforeUnmount(() => {
-  document?.getElementById('__nuxt')?.classList.remove('overflow-hidden')
+onBeforeUnmount(()=>{
+
+  const defaultScroller =  document?.body
+  defaultScroller?.classList.remove('overflow-hidden')
 
 })
-
-function scrollDown() {
-  container.value?.scrollTo({top: window?.outerHeight * 2, behavior: 'smooth'})
-
-}
 
 </script>
 
@@ -101,18 +102,5 @@ function scrollDown() {
   display: none;
 }
 
-
-/* we will explain what these classes do next! */
-.v-enter-active {
-  transition: opacity 0.5s ease, transform 0.3s ease;
-}
-
-.v-enter-from {
-  transform: translateY(100vh);
-}
-
-.v-enter-to {
-  transform: translateY(0);
-}
 
 </style>

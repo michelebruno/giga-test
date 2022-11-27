@@ -6,14 +6,29 @@
       <h4>{{ formattedPrice }}</h4>
     </div>
   </div>
+  <slot></slot>
 
 </template>
 <script setup lang="ts">
 import {computed, useCurrentProduduct,} from "#imports";
 
-const {title, slug, price, thumbnail} = defineProps(['title', 'thumbnail', 'price', 'slug'])
+const {title, slug, price, thumbnail} = defineProps({
+  title: String,
+  price: Number,
+  slug: {
+    current: String,
+    required: true
+  },
+  thumbnail: Object,
+  __typename: String
+})
 
 const {setProduct} = useCurrentProduduct()
 
 const formattedPrice = computed(() => "€ " + new Intl.NumberFormat('it-IT', {minimumFractionDigits: 2}).format(price))
 </script>
+
+<style scoped>
+
+
+</style>
