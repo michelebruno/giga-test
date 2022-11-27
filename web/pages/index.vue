@@ -37,6 +37,7 @@ query {
      slug {current}
      thumbnail {
         asset {
+          _id
           size
           url
         }

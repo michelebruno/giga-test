@@ -1,7 +1,7 @@
 <template>
 
   <div class="product-overlay-container noscrollbar overflow-y-scroll z-20" ref="container"
-       :style="{maxHeight : viewportHeight *2  + 'px'}">
+       :style="{maxHeight : viewportHeight *2  + 'px'}" >
 
     <div class="fixed inset-0 bg-gray h-screen w-screen  z-10"
          :style="{opacity: 1 - scrollProgress }"></div>
@@ -15,7 +15,7 @@
 
           <div class="py-5 lg:py-0 flex-1 lg:col-start-2 lg:row-start-1 lg:row-span-2">
             <div class="relative h-full lg:pt-0">
-              <img v-if="thumbnail" :src="thumbnail?.asset?.url"
+              <SanityImage :q="80" v-if="thumbnail" :asset-id="thumbnail?.asset?._id"
                    class="absolute inset-0 object-cover h-full w-full"/>
             </div>
           </div>
