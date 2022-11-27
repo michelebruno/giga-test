@@ -47,10 +47,5 @@ query {
 
 const {data} = await useAsyncQuery(query)
 
-onMounted(() => {
-  setTimeout(() => {
-    document?.getElementById('second-section')?.scrollIntoView({behavior:'smooth'})
-  },2000)
-})
 </script>
 

@@ -24,21 +24,3 @@ export default {
 }
 </script>
 
-
-<style scoped>
-.page-enter-active, .page-leave-active {
-  transition: all .3s cubic-bezier(.77, 0, .175, 1);
-}
-
-.page-enter-from {
-  transform: translateY(100vh);
-}
-
-.page-leave-to {
-  transform: translateY(-100vh);
-}
-
-.page-enter-to, .page-leave-from {
-  transform: translateY(0);
-}
-</style>

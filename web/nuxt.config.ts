@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         // '@nuxt/image' // This module is still in beta for Nuxt3
     ],
     app: {
-        pageTransition: { name: 'page', mode: 'out-in' },
+        pageTransition: {name: 'page', mode: 'out-in'},
         head: {
             titleTemplate: '%s – Pot Pot Pottery',
             title: 'Pot Pot Pottery',

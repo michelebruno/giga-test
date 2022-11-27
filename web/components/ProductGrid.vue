@@ -27,8 +27,6 @@ const props = withDefaults(defineProps<Props>(), {backTo: '/archive'})
 
 const {product, backTo, isArchiveOnSSR} = useCurrentProduduct()
 
-console.log(props.backTo)
-
 function closeModal() {
   backTo(props.backTo)
 }
