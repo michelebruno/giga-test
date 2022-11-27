@@ -1,30 +1,21 @@
 <template>
-  <div class="relative pt-[140%] bg-gray cursor-pointer" @click="isModalOpen = true">
+  <div class="relative pt-[140%] bg-gray cursor-pointer" @click="setProduct(slug.current)">
     <img :src="thumbnail.asset.url" class="absolute inset-0 object-cover w-full h-full">
     <div class="absolute bottom-4 left-4">
       <h3>{{ title }}</h3>
-      <h4>€ {{ new Intl.NumberFormat('it-IT', {minimumFractionDigits: 2}).format(price) }}</h4>
+      <h4>{{ formattedPrice }}</h4>
     </div>
   </div>
 
-  <Teleport to="body">
-    <ProductOverlay v-if="isModalOpen" :title="title" :thumbnail="thumbnail" :price="price" @close="isModalOpen=false"/>
-  </Teleport>
 </template>
-<script>
-export default {
-  name: "ProductCard",
-  props: {
-    title: String,
-    price: Number,
-    thumbnail: Object
-  },
-  data() {
-    return {
-      isModalOpen: false
-    }
-  }
-}
+<script setup lang="ts">
+import {computed, useCurrentProduduct,} from "#imports";
+
+const {title, slug, price, thumbnail} = defineProps(['title', 'thumbnail', 'price', 'slug'])
+
+const {setProduct} = useCurrentProduduct()
+
+const formattedPrice = computed(() => "€ " + new Intl.NumberFormat('it-IT', {minimumFractionDigits: 2}).format(price))
 </script>
 
 <style scoped>

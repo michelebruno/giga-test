@@ -8,5 +8,11 @@
     letter-spacing: -0.03em;
   }
 
+  [href], button {
+    @apply hover:text-gray-700;
 
+    &.secondary {
+      @apply text-gray hover:text-gray-700
+    }
+  }
 }

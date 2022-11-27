@@ -1,15 +1,16 @@
 <template>
   <div class="text-3xl font-semibold">
-    <slot/>
+    <keep-alive>
+      <slot />
+    </keep-alive>
     <footer class="pt-32  px-4 pb-4">
       <div class="w-full flex justify-between">
         <div>
           <NuxtLink to="/">Pot Pot Pottery</NuxtLink>
         </div>
         <div class="flex">
-          <a href="" class="mr-5">Instagram</a>
-          <a href="">Facebook</a>
-
+          <a href="https://instagram.com/potpotpottery" target="_blank" class="mr-5 secondary">Instagram</a>
+          <a href="https://www.facebook.com/potpotpottery/" target="_blank" class="secondary">Facebook</a>
         </div>
       </div>
     </footer>

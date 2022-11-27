@@ -22,6 +22,14 @@ export default createSchema({
                     title: 'Title'
                 },
                 {
+                    type: 'slug',
+                    name: 'slug',
+                    options: {
+                        source: 'title'
+                    },
+                    validation: R => R.required()
+                },
+                {
                     type: 'number',
                     name: 'price',
                     title: 'Pricing'

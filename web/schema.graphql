@@ -40,6 +40,7 @@ type Article implements Document {
     "Date the document was last modified"
     _updatedAt: DateTime
     price: Float
+    slug: Slug
     thumbnail: Image
     title: String
 }
@@ -295,6 +296,7 @@ input ArticleFilter {
     _type: StringFilter
     _updatedAt: DatetimeFilter
     price: FloatFilter
+    slug: SlugFilter
     thumbnail: ImageFilter
     title: StringFilter
 }
@@ -307,6 +309,7 @@ input ArticleSorting {
     _type: SortOrder
     _updatedAt: SortOrder
     price: SortOrder
+    slug: SlugSorting
     thumbnail: ImageSorting
     title: SortOrder
 }

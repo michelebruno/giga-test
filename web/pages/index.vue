@@ -17,16 +17,28 @@
       </div>
     </Wrapper>
   </main>
+
+  <Teleport to="body">
+    <ProductOverlay v-if="product" v-bind="data.articles.find(p => p.slug.current === product)"
+                    @close="closeModal"/>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
+import {useCurrentProduduct} from "#imports";
 
+const {product, backTo} = useCurrentProduduct();
+
+function closeModal() {
+  backTo('/')
+}
 
 const query = gql`
 query {
   articles: allArticle(limit: 3) {
      title
      price
+     slug {current}
      thumbnail {
         asset {
           size
@@ -38,7 +50,7 @@ query {
 `
 const {data} = await useAsyncQuery(query)
 
-const isModalOpen = useState('modal', () => true)
+
 </script>
 
 <style scoped>

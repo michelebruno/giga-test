@@ -9,8 +9,11 @@ export default defineNuxtConfig({
     css: [
         '~/assets/css/main.scss'
     ],
-    modules: ['@nuxtjs/sanity', '@nuxtjs/apollo'],
-
+    modules: [
+        '@nuxtjs/sanity',
+        '@nuxtjs/apollo',
+        // '@nuxt/image' // This module is still in beta for Nuxt3
+    ],
     app: {
         head: {
             link: [

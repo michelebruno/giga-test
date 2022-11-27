@@ -11,14 +11,24 @@
       </div>
     </Wrapper>
   </main>
+
+  <Teleport to="body">
+    <ProductOverlay v-if="product" v-bind="data.articles.find(p => p.slug.current === product)"
+                    @close="closeModal"/>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
+import {useCurrentProduduct} from "#imports";
+
 const query = gql`
 query {
   articles: allArticle {
      title
      price
+     slug {
+        current
+     }
      thumbnail {
         asset {
           size
@@ -29,8 +39,27 @@ query {
   }
 `
 const {data} = await useAsyncQuery(query)
+
+definePageMeta({
+  keepalive: true,
+  key: 'archive',
+  validate: async (route) => {
+
+    if (/^\/archive/gi.test(route.path)) return true;
+
+    const matches = route.path.match(/^\/products\/([A-z-\w\s]*)/)
+
+    return matches?.length && data?.articles.includes(matches[1]) || {
+      statusCode: 404,
+      statusMessage: "We couldn't find your product"
+    }
+
+  }
+})
+
+const {backTo, product} = useCurrentProduduct()
+
+function closeModal() {
+  backTo('/archive')
+}
 </script>
-
-<style scoped>
-
-</style>
