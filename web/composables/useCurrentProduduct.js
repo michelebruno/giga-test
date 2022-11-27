@@ -1,9 +1,11 @@
 export const useCurrentProduduct = () => {
+    const route = useRoute()
 
     const product = useState('currentProduct', () => {
-        const route = useRoute()
         return route.params.slug
     })
+
+    const isArchiveOnSSR = /^\/archive/gi.test(route.path)
 
     function backTo(path) {
         history.pushState({}, '', path)
@@ -15,6 +17,6 @@ export const useCurrentProduduct = () => {
         product.value = slug
     }
 
-    return {product, backTo, setProduct}
+    return {product, backTo, setProduct,isArchiveOnSSR}
 
 }

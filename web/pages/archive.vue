@@ -5,11 +5,12 @@
         Pot Pot Pottery
       </Heading>
     </Wrapper>
-    <Wrapper v-if="data && data.articles">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-6">
-        <ProductCard v-for="article in data.articles" v-bind="article"/>
-      </div>
-    </Wrapper>
+
+    <ProductGrid v-if="isArchiveOnSSR" :items="data?.articles"/>
+    <ClientOnly v-else>
+      <ProductGrid :items="data?.articles"/>
+    </ClientOnly>
+
   </main>
 
   <Teleport to="body">
@@ -20,6 +21,7 @@
 
 <script setup lang="ts">
 import {useCurrentProduduct} from "#imports";
+import ProductGrid from "~/components/ProductGrid.vue";
 
 const query = gql`
 query {
@@ -57,7 +59,7 @@ definePageMeta({
   }
 })
 
-const {backTo, product} = useCurrentProduduct()
+const {backTo, product, isArchiveOnSSR} = useCurrentProduduct()
 
 function closeModal() {
   backTo('/archive')

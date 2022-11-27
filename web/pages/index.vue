@@ -1,6 +1,10 @@
 <template>
   <main class="font-semibold">
-    <section class="min-h-screen bg-gray-500"></section>
+    <section class="min-h-screen bg-white relative">
+      <video src="~assets/index-cover-video.mp4"
+             class="inset-0 absolute object-cover object-center h-full w-full" loop autoplay playsinline muted
+             poster="~assets/index-cover-video-poster.jpeg"/>
+    </section>
     <Wrapper>
       <Heading subheading="Potteries by Leonardo Romano">
         Pot Pot Pottery

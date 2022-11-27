@@ -4,7 +4,7 @@
       <slot />
     </keep-alive>
     <footer class="pt-32  px-4 pb-4">
-      <div class="w-full flex justify-between">
+      <div class="w-full sm:flex justify-between">
         <div>
           <NuxtLink to="/">Pot Pot Pottery</NuxtLink>
         </div>
@@ -23,7 +23,3 @@ export default {
   name: "default"
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -31,7 +31,6 @@
 </template>
 
 <script setup lang="ts">
-
 import {defineNuxtComponent, useState} from "#app";
 import {onBeforeUnmount, onMounted} from "#imports";
 import {Ref} from "@vue/reactivity";
@@ -54,12 +53,14 @@ const {title, slug, price, thumbnail} = defineProps({
   thumbnail: Object,
   __typename: String
 })
+
 const scrollProgress = useState('overlay.scrollprogress', () => 1)
+
 onMounted(() => {
   document?.getElementById('__nuxt')?.classList.add('overflow-hidden')
 
   container.value?.addEventListener('scroll', e => {
-    scrollProgress.value = e.target.scrollTop / window.innerHeight
+    scrollProgress.value = e?.target?.scrollTop / window.innerHeight
     if (scrollProgress.value === 1) emit('close')
   })
 })
@@ -73,6 +74,7 @@ function scrollDown() {
   container.value?.scrollTo({top: window?.outerHeight * 2, behavior: 'smooth'})
 
 }
+
 </script>
 
 <style scoped>

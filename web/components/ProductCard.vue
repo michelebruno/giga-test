@@ -2,7 +2,7 @@
   <div class="relative pt-[140%] bg-gray cursor-pointer" @click="setProduct(slug.current)">
     <img :src="thumbnail.asset.url" class="absolute inset-0 object-cover w-full h-full">
     <div class="absolute bottom-4 left-4">
-      <h3>{{ title }}</h3>
+      <h3><a :href="'/products/' + slug.current" class="!text-black" @click.prevent>{{ title }}</a></h3>
       <h4>{{ formattedPrice }}</h4>
     </div>
   </div>
@@ -17,7 +17,3 @@ const {setProduct} = useCurrentProduduct()
 
 const formattedPrice = computed(() => "€ " + new Intl.NumberFormat('it-IT', {minimumFractionDigits: 2}).format(price))
 </script>
-
-<style scoped>
-
-</style>
